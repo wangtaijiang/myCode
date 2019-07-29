@@ -7,7 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -19,10 +20,12 @@ import org.springframework.stereotype.Component;
  * 将配置文件中配置的每一个属性的值映射到对象中
  * @ConfigurationProperties ：告诉SpringBoot将本类中的所有属性与配置文件中的相关配置进行绑定；
  *      prefix = "person":配置文件中那个标签下面的所有属性进行映射
+ *      默认从全局配置文件获取值
  * 只有这个组件是容器中的组件，才能使用容器提供的@ConfigurationProperties 功能；
  */
 @Component
-//@ConfigurationProperties(prefix = "person" )
+@ConfigurationProperties(prefix = "person" )
+@PropertySource(value = "classpath:person.properties") //读取非全局的配置文件
 public class Person {
 
     /**
@@ -31,9 +34,9 @@ public class Person {
      * </bean>
      *
      */
-    @Value("${person.name}")
+//    @Value("${person.name}")
     private String name;
-    @Value("#{2*18}")
+//    @Value("#{2*18}")
     private Integer age;
     private Boolean bossFlag;
     private Date birth;
