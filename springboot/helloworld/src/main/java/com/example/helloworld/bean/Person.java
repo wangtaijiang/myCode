@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 /**
@@ -25,7 +24,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ConfigurationProperties(prefix = "person" )
-@PropertySource(value = "classpath:person.properties") //读取非全局的配置文件
+//@PropertySource(value = "classpath:person.properties") //读取非全局的配置文件
 public class Person {
 
     /**
