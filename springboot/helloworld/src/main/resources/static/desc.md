@@ -1,0 +1,1 @@
+static文件夹保存所有的静态资源：如 js css images；
