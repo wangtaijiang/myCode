@@ -7,6 +7,7 @@ package com.example.helloworld.bean;
  * @authur wtj
  * @date 2019/7/29    18:18
  */
+
 public class Dog {
     private String name;
     private Integer age;

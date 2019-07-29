@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,25 +22,24 @@ import org.springframework.stereotype.Component;
  * 只有这个组件是容器中的组件，才能使用容器提供的@ConfigurationProperties 功能；
  */
 @Component
-@ConfigurationProperties(prefix = "person" )
+//@ConfigurationProperties(prefix = "person" )
 public class Person {
-    @Override
-    public String toString() {
-        return "Person{" +
-                "name='" + name + '\'' +
-                ", age=" + age +
-                ", bossFlag=" + bossFlag +
-                ", birth=" + birth +
-                ", map=" + map +
-                ", list=" + list +
-                ", dog=" + dog +
-                '}';
-    }
 
+    /**
+     * <bean class="Person">
+     *      <property name="name" value="字面量/${key}从环境变量、配置文件中获取值/#{SpEL}"></property>
+     * </bean>
+     *
+     */
+    @Value("${person.name}")
     private String name;
+    @Value("#{2*18}")
     private Integer age;
     private Boolean bossFlag;
     private Date birth;
+    private Map<String,Object> map;
+    private List<Object> list;
+    private Dog dog;
 
     public String getName() {
         return name;
@@ -98,8 +97,18 @@ public class Person {
         this.dog = dog;
     }
 
-    private Map<String,Object> map;
-    private List<Object> list;
-    private Dog dog;
+    @Override
+    public String toString() {
+        return "Person{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", bossFlag=" + bossFlag +
+                ", birth=" + birth +
+                ", map=" + map +
+                ", list=" + list +
+                ", dog=" + dog +
+                '}';
+    }
+
 
 }

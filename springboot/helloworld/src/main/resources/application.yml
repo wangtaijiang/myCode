@@ -1,12 +1,12 @@
-person:
-  name: zhangsan
-  age: 18
-  bossFlag: true
-  bitth: 1990/1/1
-  map: {k1: v1,k2: v2}
-  list:
-    - lisi
-    - zhaoliu
-  dog:
-    name: 狗
-    age: 2
+#person:
+#  name: zhangsan
+#  age: 18
+#  bossFlag: true
+#  bitth: 1990/1/1
+#  map: {k1: v1,k2: v2}
+#  list:
+#    - lisi
+#    - zhaoliu
+#  dog:
+#    name: 狗
+#    age: 2
