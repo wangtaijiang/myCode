@@ -35,5 +35,11 @@ public class SpringBootCache01ApplicationTests {
         employee.setGender(0);
 
     }
+    @Test
+    public void testCacheEvict(){
+
+        employeeService.deleteEMP(1);
+
+    }
 
 }

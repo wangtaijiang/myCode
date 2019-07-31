@@ -1,8 +1,11 @@
 package com.example.cache.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.stereotype.Service;
 
 import com.example.cache.entities.Employee;
@@ -12,6 +15,7 @@ import com.example.cache.mapper.EmployeeMapper;
  * @authur wtj
  * @date 2019/7/31    11:45
  */
+@CacheConfig(cacheNames = "emp") //抽取缓存的公共配置
 @Service
 public class EmployeeService {
 
@@ -95,6 +99,7 @@ public class EmployeeService {
     // [[id]]
     public Employee getEMP(Integer id){
         System.out.println("=================根据员工id查询员工方法===========");
+
         Employee employee = employeeMapper.getEmployee(id);
         return employee;
     }
@@ -121,7 +126,45 @@ public class EmployeeService {
      */
     @CachePut
     public Employee updateEMP(Employee employee){
+        System.out.println("=================update员工方法===========");
+
         employeeMapper.updateEMP(employee);
         return employee;
+    }
+
+    /**
+     * @CacheEbvict :缓存清除
+     *  key:指定要清除的数据
+     *  allEntries :默认为false，true表示删除这个缓存中所有数据，此时当然不用指定key的值啦
+     *  beforeInvocation：缓存的清除是否在方法之前，默认为false，即缓存清除操作在执行方法之后执行。
+     *
+     */
+    @CacheEvict(value = "emp",/*key = "#a0",*/allEntries = true)
+    public void deleteEMP(Integer id){
+//        Entity entity = new Entity("haha",3,new char[]{'a','c','d'});
+//        System.out.println(entity);
+        System.out.println("=================根据员工id删除员工方法===========");
+
+        employeeMapper.deleteEmp(id);
+
+    }
+
+    /**
+     * @Caching
+     *  定义复杂的缓存规则
+     *
+     * @param name
+     * @return
+     */
+    @Caching(
+            cacheable = {
+                    @Cacheable(value = "emp",key = "#name")
+            },put = {
+                    @CachePut(value = "emp",key = "#result.email"),
+                    @CachePut(value = "emp",key = "#result.lastName")
+            }
+    )
+    public Employee getEMPByLastName(String name){
+        employeeMapper.getEMPByLastName();
     }
 }
