@@ -95,7 +95,7 @@ public class EmployeeService {
      * @return
      */
 //    @Cacheable(cacheNames = "emp",key = "#root.methodName +'['+#id+']'")// key为getEMP[id]
-    @Cacheable(cacheNames = "emp",keyGenerator = "myKeyGenerator",condition = "#a0>0",unless = "#a0==1")//key为getEMP
+    @Cacheable(cacheNames = "emp",keyGenerator = "myKeyGenerator",condition = "#a0>0",unless = "#a0==1")//key为getEMP[[id]]
     // [[id]]
     public Employee getEMP(Integer id){
         System.out.println("=================根据员工id查询员工方法===========");
