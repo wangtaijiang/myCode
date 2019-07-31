@@ -165,6 +165,6 @@ public class EmployeeService {
             }
     )
     public Employee getEMPByLastName(String name){
-        employeeMapper.getEMPByLastName();
+        return employeeMapper.getEMPByLastName();
     }
 }
