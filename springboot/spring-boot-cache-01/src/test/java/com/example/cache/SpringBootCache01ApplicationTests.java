@@ -3,6 +3,7 @@ package com.example.cache;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.StringRedisTemplate;
@@ -21,8 +22,9 @@ public class SpringBootCache01ApplicationTests {
     StringRedisTemplate stringRedisTemplate;//操作字符串
     @Autowired
     RedisTemplate redisTemplate;// k - v 都是对象
+    @Qualifier("myRedisTemplate")
     @Autowired
-    RedisTemplate<Object,Employee> employeeRedisTemplate;
+    RedisTemplate<Object,Object> myRedisTemplate;
     @Test
     public void contextLoads() {
 
@@ -86,9 +88,12 @@ public class SpringBootCache01ApplicationTests {
             //①自己将对象转换为json格式
             //②redisTemplate默认的序列化规则
 
-        employeeRedisTemplate.opsForValue().set("emp02",employeeService.getEMP(2));
-//        System.out.println(employeeRedisTemplate.opsForValue().get("emp02"));
+//        myRedisTemplate.opsForValue().set(employeeService.getEMP(2),employeeService.getEMP(2));//todo 测试报错
+//        System.out.println(myRedisTemplate.opsForValue().get("emp02"));
         System.out.println("================");
+        Employee emp2 = employeeService.getEMP2(1);
+        Object o = myRedisTemplate.opsForValue().get("emp:emp:emp:1");
+        System.out.println(o);
     }
 
 }

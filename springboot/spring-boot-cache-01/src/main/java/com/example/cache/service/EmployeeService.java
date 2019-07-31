@@ -1,11 +1,13 @@
 package com.example.cache.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.Cache;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
+import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.stereotype.Service;
 
 import com.example.cache.entities.Employee;
@@ -166,5 +168,19 @@ public class EmployeeService {
     )
     public Employee getEMPByLastName(String name){
         return employeeMapper.getEMPByLastName();
+    }
+
+    @Autowired
+    RedisCacheManager redisCacheManager;//springBoot创建的RedisCacheManager
+    //二、以代码方式调用缓存组件：
+    public Employee getEMP2(Integer id){
+        System.out.println("=================根据员工id查询员工方法===========");
+
+        Employee employee = employeeMapper.getEmployee(id);
+
+        //采用编码方式存入缓存
+        Cache emp = redisCacheManager.getCache("emp");
+        emp.put("emp:1",employee);
+        return employee;
     }
 }
