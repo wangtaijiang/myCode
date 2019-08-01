@@ -6,6 +6,7 @@ import java.util.Map;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.amqp.core.AmqpAdmin;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +20,9 @@ public class SpringbootAmqp01ApplicationTests {
 
     @Autowired
     RabbitTemplate rabbitTemplate;
+
+    @Autowired
+    AmqpAdmin amqpAdmin;
     /**
      * 1、单播（点对点）
      */
@@ -59,5 +63,19 @@ public class SpringbootAmqp01ApplicationTests {
     @Test
     public void sendMsg(){
         rabbitTemplate.convertAndSend("exchange.fanout","",new Person("王五",14));
+    }
+    @Test
+    public void testCreateExchange(){
+//        amqpAdmin.declare...;//创建相应的exchange、queue、Binding
+//        amqpAdmin.delete..;//删除相应的exchange、queue、Binding
+        //创建Exchange
+//        amqpAdmin.declareExchange(new DirectExchange("amqpadmin.exchange"));
+        //创建Queue
+//        amqpAdmin.declareQueue(new Queue("amqpadmin.queue",true));
+        //绑定Exchange 和 Queue，创建绑定规则
+//        amqpAdmin.declareBinding(new Binding("amqpadmin.queue",Binding.DestinationType.QUEUE,"amqpadmin.exchange",
+//                "amqp.hehe",null));
+
+        System.out.println("创建完成");
     }
 }
