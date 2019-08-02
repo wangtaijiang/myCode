@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
  * @authur wtj
  * @date 2019/8/1    21:28
  */
-@Document(indexName = "sanguo",type = "book")
+@Document(indexName = "sanguo",type = "person")
 public class Person {
     private Long id;
     private String name;

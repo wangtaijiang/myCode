@@ -19,10 +19,19 @@ public interface PersonRepository extends CrudRepository<Person, Long> {
      * 方法名的命名可以参考：https://docs.spring.io/spring-data/elasticsearch/docs/3.1.9.RELEASE/reference/html/#elasticsearch.repositories
      *
      * 详见官方文档
+     * @param firstname
+     * @return
+     */
+//    方法名findByFirstnameLike的命名等同于 加注解 @Query("{\"bool\" : {\"must\" : {\"field\" : {\"firstname\" : \"?\"}}}}")
+    List<Person> findByFirstnameLike(String firstname);
+
+    /**
+     *
      * @param lastname
      * @return
      */
+
     List<Person> findByLastname(String lastname);
 
-    List<Person> findByFirstnameLike(String firstname);
+
 }
